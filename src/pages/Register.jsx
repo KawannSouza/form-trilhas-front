@@ -138,6 +138,13 @@ export default function Register() {
                     </div>
                 </div>
             </Modal>
+
+            <Modal isOpen={openFileModal}>
+                <div className="flex flex-col justify-center items-center gap-4">
+                    <FileUpload onFileSelect={handleFileSelect}/>
+                    <button className="bg-red-600 text-white font-semibold cursor-pointer py-2 px-4 rounded-xl" onClick={() => setOpenFileModal(false)}>FECHAR</button>
+                </div>
+            </Modal>
             
             <button
                 className="bg-blue-400 text-white font-semibold py-2 px-2 w-60 rounded-xl cursor-pointer lg:[py-2 px-6 w-70]"
