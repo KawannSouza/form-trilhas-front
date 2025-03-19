@@ -1,5 +1,7 @@
 //IMPORTAÇÕES
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import axios from "axios";
 import Modal from '../components/Modal';
 import FileUpload from '../components/FileUpload';
 
@@ -22,6 +24,27 @@ export default function Register() {
     const [cep, setCep] = useState("");
     const [uf, setUf] = useState("");
     const [logradouro, setLogradouro] = useState("");
+
+    const url = "https://form-trilhas-api.onrender.com";
+
+    const handleRegister = async () => {
+        if (!name || !email || !password || !confirmPassword) {
+            toast.error("Todos os campos precisam ser preenchidos!");
+            return;
+        }
+
+        try {
+            await axios.post(`${url}/users/register`, {
+                name,
+                email,
+                password,
+                confirmPassword 
+            });
+            toast.success("Registro feito com sucesso. Faça Login!");
+        } catch (error) {
+            toast.error("Erro ao tentar se registrar, tente novamente!");
+        }
+    };
 
     return (
         <div className="flex flex-col justify-center items-center gap-4">
@@ -65,7 +88,7 @@ export default function Register() {
                 <div>
                     <div className="relative">
                         <input 
-                            type="text" placeholder="Confirme sua senha"
+                            type="password" placeholder="Confirme sua senha"
                             className="py-2 px-4 border-2 border-blue-400 outline-0 rounded-2xl lg:p-4"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -148,8 +171,11 @@ export default function Register() {
             
             <button
                 className="bg-blue-400 text-white font-semibold py-2 px-2 w-60 rounded-xl cursor-pointer lg:[py-2 px-6 w-70]"
+                onClick={handleRegister}
             >
                 REGISTRAR</button>
+
+            <ToastContainer />
         </div>
     )
 }
