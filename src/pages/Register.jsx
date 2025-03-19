@@ -38,7 +38,11 @@ export default function Register() {
                 name,
                 email,
                 password,
-                confirmPassword 
+                confirmPassword,
+                cpf,
+                cep,
+                uf,
+                logradouro
             });
             toast.success("Registro feito com sucesso. Faça Login!");
         } catch (error) {
