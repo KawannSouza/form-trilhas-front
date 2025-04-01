@@ -25,6 +25,31 @@ export default function Register() {
     const [uf, setUf] = useState("");
     const [logradouro, setLogradouro] = useState("");
 
+    const handleCepChange = async (e) => {
+        const value = e.target.value.replace(/\D/g, '');
+        setCep(value);
+
+        if (value.length === 8) {
+            try {
+                const { data } = await axios.get(`https://viacep.com.br/ws/${value}/json/`);
+                if (!data.erro) {
+                    setUf(data.uf);
+                    setLogradouro(`${data.logradouro}, ${data.bairro}, ${data.localidade}`);
+
+                } else {
+                    toast.error("CEP não encontrado.");
+                    setUf("");
+                    setLogradouro("");
+
+                }   
+            } catch (error) {
+                toast.error("CEP inválido. Erro ao buscar.");
+                
+            }
+            
+        }
+    }
+
     const url = "https://form-trilhas-api.onrender.com";
 
     const handleRegister = async () => {
@@ -134,7 +159,7 @@ export default function Register() {
                                 type="text" 
                                 placeholder="Digite seu CEP" 
                                 value={cep}
-                                onChange={(e) => setCep(e.target.value)}
+                                onChange={handleCepChange}
                                 className="p-4 rounded-2xl border-2 border-blue-400 outline-0"
                             />
                             <i className="fa-solid fa-inbox absolute top-1/2 -translate-y-1/2 right-3 text-gray-700"></i>
