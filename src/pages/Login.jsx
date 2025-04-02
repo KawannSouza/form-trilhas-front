@@ -10,6 +10,11 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const validaEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -24,6 +29,12 @@ export default function Login() {
         if (!email || !password) {
           setErrorMessage('Todos os campos precisam ser preenchidos!');
           toast.error('Todos os campos precisam ser preenchidos!');
+          setLoading(false);
+          return;
+        }
+
+        if(!validaEmail(email)) {
+          toast.error("Email inválido!");
           setLoading(false);
           return;
         }

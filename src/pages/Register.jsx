@@ -25,6 +25,11 @@ export default function Register() {
     const [uf, setUf] = useState("");
     const [logradouro, setLogradouro] = useState("");
 
+    const validaEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const handleCepChange = async (e) => {
         const value = e.target.value.replace(/\D/g, '');
         setCep(value);
@@ -55,6 +60,16 @@ export default function Register() {
     const handleRegister = async () => {
         if (!name || !email || !password || !confirmPassword) {
             toast.error("Todos os campos precisam ser preenchidos!");
+            return;
+        }
+
+        if(!validaEmail(email)) {
+            toast.error("Email inválido!");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error("As senhas não coincidem!");
             return;
         }
 
