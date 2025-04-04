@@ -47,7 +47,7 @@ export default function Login() {
             toast.success('Login realizado com sucesso');
             setTimeout(() => {
               navigate('/home');
-            }, 500);
+            }, 1000);
           }
         } catch (error) {
           const message = error.response?.data?.message || 'Erro ao tentar fazer login.';
