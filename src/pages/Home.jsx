@@ -1,14 +1,39 @@
-import maintenance from '../assets/maintenance.svg';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import trilhas2 from '../assets/trilhas2.svg';
+
 
 export default function Home() {
 
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    
+    localStorage.removeItem("token");
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+
+    toast.success("Logout realizado com sucesso");
+  }
+  
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full lg:flex-row p-10">
-      <h1 className="text-3xl font-extrabold text-blue-500 whitespace-nowrap lg:text-5xl">EM MANUTENÇÃO</h1>
-      <img 
-      src={maintenance}
-      className="sm:w-150"  
-      alt="fixing-image" />
+    <div> 
+      <div className="flex flex-row justify-between px-14 py-4 bg-gradient-to-r from-blue-800 to-blue-400">
+        <img 
+          src={trilhas2}
+          alt="logo-trilhas-2" 
+          className="w-35"
+        />
+        <button
+          className="font-extrabold text-white cursor-pointer hover:text-gray-600 transform duration-300"
+          onClick={logout}
+        >
+          SAIR
+        </button>
+      </div>
+      <ToastContainer />  
     </div>
   );
 }
