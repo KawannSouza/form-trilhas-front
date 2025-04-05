@@ -1,9 +1,54 @@
+import { jwtDecode } from 'jwt-decode';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
 import trilhas2 from '../assets/trilhas2.svg';
 
-
 export default function Home() {
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userCpf, setUserCpf] = useState("");
+  const [userCep, setUserCep] = useState("");
+  const [userUf, setUserUf] = useState("");
+  const [userLogradouro, setUserLogradouro] = useState("");
+
+  const getTokenUser = () => {
+    const token = localStorage.getItem("token");
+    if(!token) return null;
+
+    try {
+      const decoded = jwtDecode(token);
+      return decoded;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  const url = "https://form-trilhas-api.onrender.com";
+
+  const userData = async () => {
+    const user = getTokenUser();
+    const externalId = user?.externalId;
+
+    try {
+      const response = await axios.get(`${url}/users/${externalId}/userdata`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+
+      setUserName(response.data.name);  
+      setUserEmail(response.data.email);
+      setUserCpf(response.data.cpf);
+      setUserCep(response.data.cep);
+      setUserUf(response.data.uf);
+      setUserLogradouro(response.data.logradouro);
+    } catch (error) {
+      toast.error("Erro ao buscar dados do usuário");
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -16,7 +61,8 @@ export default function Home() {
 
     toast.success("Logout realizado com sucesso");
   }
-  
+
+  userData(); 
 
   return (
     <div> 
@@ -33,7 +79,7 @@ export default function Home() {
           SAIR
         </button>
       </div>
-      <ToastContainer />  
+      <ToastContainer />
     </div>
   );
 }
