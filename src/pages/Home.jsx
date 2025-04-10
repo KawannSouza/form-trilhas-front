@@ -264,6 +264,7 @@ export default function Home() {
           <div className="flex flex-row-reverse justify-between mt-10">
             <button
               className="bg-gray-800 font-bold text-white p-2 rounded-md cursor-pointer hover:bg-gray-950 transform duration-300"
+              onClick={updateUserData}
             >
               ATUALIZAR
             </button>
