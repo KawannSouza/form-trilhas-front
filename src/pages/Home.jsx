@@ -1,9 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import trilhas2 from '../assets/trilhas2.svg';
+import boy from '../assets/boy.svg';
+import girl from '../assets/girl.svg';
 
 export default function Home() {
 
@@ -52,7 +54,7 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  const logout = async () => {
+  const logout = () => {
     
     localStorage.removeItem("token");
     setTimeout(() => {
@@ -62,7 +64,11 @@ export default function Home() {
     toast.success("Logout realizado com sucesso");
   }
 
-  userData(); 
+  useEffect(() => {
+    userData();
+  }, []);
+
+  const [isGirl, setIsGirl] = useState(false);
 
   return (
     <div> 
@@ -78,6 +84,32 @@ export default function Home() {
         >
           SAIR
         </button>
+      </div>
+      <div className="flex flex-col items-center justify-center p-4">
+        <h1 className="text-3xl mt-10 font-semibold">Olá, {userName}</h1>
+        <div className="flex flex-col items-center justify-center m-10 md:flex-row">
+            <div className="flex flex-col items-center justify-center">
+              <img 
+                  src={isGirl ? girl : boy}
+                  alt="boy-image" 
+                  className="w-70 object-contain mb-4"
+                 
+                />
+              <button 
+                onClick={() => setIsGirl(!isGirl)}
+                className="px-4 py-2 bg-blue-600 text-white font-bold rounded-md cursor-pointer hover:bg-blue-700 transition-all duration-300"  
+              >
+                Alterar Avatar
+              </button>
+            </div>
+            <div className="bg-white p-6 items-center justify-center rounded-2xl shadow-lg m-10 max-w-md w-full">
+                <p className="font-bold">{userEmail}</p>
+                <p className="font-bold">{userCpf}</p>
+                <p className="font-bold">{userCep}</p>
+                <p className="font-bold">{userUf}</p> 
+                <p className="font-bold">{userLogradouro}</p>
+            </div>
+          </div>
       </div>
       <ToastContainer />
     </div>
