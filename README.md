@@ -1,12 +1,72 @@
-# React + Vite
+# 📝 FormTrilhas - Sistema de Inscrição Trilhas Inova
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FormTrilhas é um sistema completo de cadastro e login de candidatos para processos seletivos, permitindo o registro de dados pessoais, upload de currículo e geração de comprovantes em PDF. 
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Registro com dados obrigatórios (nome, e-mail, senha) e opcionais (CPF, CEP, UF, logradouro, currículo)
+- Login seguro com autenticação via JWT
+- Painel do usuário com visualização e edição de dados
+- Geração de comprovante de inscrição em PDF
+- Validações de campos e feedback com notificações
 
-## Expanding the ESLint configuration
+## 🧰 Tecnologias
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Front-end
+- React.js + TailwindCSS
+- Axios, Toastify, Framer Motion
+- JsPDF para gerar PDFs
+
+### Back-end
+- Node.js + Express.js
+- Prisma (ORM) com MongoDB
+- JWT para autenticação
+
+### APIs externas
+- ViaCEP (busca de endereço por CEP)
+
+## 🗂 Estrutura do Projeto
+
+- `form-trilhas-front`: aplicação React
+- `form-trilhas-api`: API Node.js com Express
+- Banco de dados NoSQL (MongoDB)
+
+## ⚙️ Como Executar Localmente
+
+### Front-end
+```bash
+cd form-trilhas-front
+npm install
+npm run dev
+```
+
+### Back-end
+```bash
+cd form-trilhas-api
+npm install
+
+# Criar um arquivo .env com:
+# DATABASE_URL=<sua_string_de_conexão>
+# JWT_SECRET=<sua_chave_secreta>
+
+npm run dev
+```
+
+Acesse via: [http://localhost:5173](http://localhost:5173)
+
+## 🔐 Autenticação JWT
+
+1. Login gera um token JWT
+2. Token é armazenado no `localStorage`
+3. É necessário enviá-lo no header `Authorization` para acessar rotas protegidas
+
+## 🌐 Links
+
+- 🧪 [API - Swagger Docs](https://form-trilhas-api.onrender.com/api-docs/)
+- 🔗 [Aplicação Web](https://form-trilhas-front.vercel.app/)
+- 📦 [Repositório Front-end](https://github.com/KawannSouza/form-trilhas-front)
+- 🔧 [Repositório Back-end](https://github.com/KawannSouza/form-trilhas-api)
+
+## 📌 Considerações Finais
+
+FormTrilhas é um sistema flexível, pronto para evoluir conforme novas demandas surgirem. Seu foco é oferecer uma experiência simples, segura e funcional aos usuários.
