@@ -6,6 +6,7 @@ import axios from 'axios';
 import trilhas2 from '../assets/trilhas2.svg';
 import boy from '../assets/boy.svg';
 import girl from '../assets/girl.svg';
+import { jsPDF } from 'jspdf';
 
 export default function Home() {
 
@@ -70,6 +71,21 @@ export default function Home() {
 
   const [isGirl, setIsGirl] = useState(false);
 
+  const generatePdf = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(14);
+
+    doc.text("Comprovante de Inscrição", 20, 20);
+    doc.text(`Nome: ${userName}`, 20, 40);
+    doc.text(`Email: ${userEmail}`, 20, 50);
+    doc.text(`Cep: ${userCep}`, 20, 60);
+    doc.text(`Estado: ${userUf}`, 20, 70);
+    doc.text(`Logradouro: ${userLogradouro}`, 20, 80);
+
+    doc.save("comprovante.pdf");
+  }
+
   return (
     <div> 
       <div className="flex flex-row justify-between px-14 py-4 bg-gradient-to-r from-blue-800 to-blue-400">
@@ -110,6 +126,12 @@ export default function Home() {
                 <p className="font-bold">{userLogradouro}</p>
             </div>
           </div>
+          <button 
+            onClick={generatePdf}
+            className="bg-gray-800 text-white font-bold py-2 px-4 rounded-md cursor-pointer m-10 hover:px-8 transform duration-300"
+          >
+            Gerar Comprovante de Inscrição
+          </button>
       </div>
       <ToastContainer />
     </div>
