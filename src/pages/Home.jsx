@@ -159,7 +159,7 @@ export default function Home() {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center p-4">
-        <h1 className="text-3xl mt-10 font-semibold">Olá, {userName}</h1>
+        <h1 className="text-3xl mt-10 font-semibold">Olá, <span>{userName}</span></h1>
         <div className="flex flex-col items-center justify-center m-10 md:flex-row">
             <div className="flex flex-col items-center justify-center">
               <img 
@@ -176,11 +176,11 @@ export default function Home() {
               </button>
             </div>
             <div className="bg-white p-6 items-center justify-center rounded-2xl shadow-lg m-10 max-w-md w-full">
-                <p className="font-bold">{userEmail}</p>
-                <p className="font-bold">{userCpf}</p>
-                <p className="font-bold">{userCep}</p>
-                <p className="font-bold">{userUf}</p> 
-                <p className="font-bold">{userLogradouro}</p>
+                <p>Email: <span className="font-bold">{userEmail}</span></p>
+                <p>CPF: <span className="font-bold">{userCpf}</span></p>
+                <p>CEP: <span  className="font-bold">{userCep}</span></p>
+                <p>UF: <span className="font-bold">{userUf}</span></p> 
+                <p>Endereço: <span className="font-bold">{userLogradouro}</span></p>
                 <button
                   className="mt-4 px-4 py-2 bg-blue-600 font-bold text-white rounded cursor-pointer hover:bg-blue-900 transition duration-300"
                   onClick={() => setOpenUpdateInfosModal(true)}
